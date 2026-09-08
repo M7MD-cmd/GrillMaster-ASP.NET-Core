@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrillMaster", "GrillMaster.csproj", "{116691EA-5418-4DC6-9C8C-E95DB3D57F7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{116691EA-5418-4DC6-9C8C-E95DB3D57F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116691EA-5418-4DC6-9C8C-E95DB3D57F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116691EA-5418-4DC6-9C8C-E95DB3D57F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116691EA-5418-4DC6-9C8C-E95DB3D57F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB0C102F-508D-449A-BEAB-13FAAF16B49F}
+	EndGlobalSection
+EndGlobal

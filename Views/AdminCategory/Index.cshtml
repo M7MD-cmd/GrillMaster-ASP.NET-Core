@@ -1,0 +1,146 @@
+﻿@model List<GrillMaster.Models.Category>
+
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-category.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-category-page">
+
+    <div class="admin-category-header">
+
+        <div>
+            <span class="admin-category-label">GRILLMASTER ADMIN</span>
+
+            <h1>Categories</h1>
+
+            <p>Manage your menu categories.</p>
+        </div>
+
+        <a asp-action="Create" class="category-add-btn">
+            <span>+</span>
+            Add Category
+        </a>
+
+    </div>
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="category-alert">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <div class="category-card">
+
+        <div class="category-card-header">
+
+            <h2>All Categories</h2>
+
+            <span>
+                @Model.Count categories
+            </span>
+
+        </div>
+
+        @if (Model.Any())
+        {
+            <div class="category-table-wrapper">
+
+                <table class="category-table">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category Name</th>
+                            <th>Menu Items</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <span class="category-id">
+                                        #@category.Id
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        @category.Name
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    <span class="items-count">
+                                        @(category.MenuItems?.Count ?? 0)
+                                    </span>
+                                </td>
+
+                                <td>
+
+                                    <div class="category-actions">
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@category.Id"
+                                           class="category-edit-btn">
+                                            Edit
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@category.Id"
+                                           class="category-delete-btn">
+                                            Delete
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div class="category-empty">
+
+                <div class="category-empty-icon">
+                    📂
+                </div>
+
+                <h3>No categories found</h3>
+
+                <p>
+                    Start by creating your first menu category.
+                </p>
+
+                <a asp-action="Create"
+                   class="category-add-btn">
+
+                    <span>+</span>
+                    Add Category
+
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</div>

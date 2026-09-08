@@ -1,0 +1,115 @@
+@model GrillMaster.Models.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-dashboard.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-dashboard-page">
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">GRILLMASTER ADMIN</span>
+            <h1>Dashboard</h1>
+            <p>Overview of your restaurant operations.</p>
+        </div>
+
+        <div class="dashboard-actions">
+            <a asp-controller="AdminOrder" asp-action="Index" class="dashboard-secondary-btn">Manage Orders</a>
+            <a asp-controller="AdminMenu" asp-action="Index" class="dashboard-primary-btn">Manage Menu</a>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">TOTAL ORDERS</span>
+            <strong>@Model.TotalOrders</strong>
+            <small>All customer orders</small>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">PENDING</span>
+            <strong>@Model.PendingOrders</strong>
+            <small>Orders awaiting action</small>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">MENU ITEMS</span>
+            <strong>@Model.TotalMenuItems</strong>
+            <small>Available menu items</small>
+        </div>
+
+        <div class="stat-card">
+            <span class="stat-label">CATEGORIES</span>
+            <strong>@Model.TotalCategories</strong>
+            <small>Menu categories</small>
+        </div>
+
+        <div class="stat-card revenue-card">
+            <span class="stat-label">REVENUE</span>
+            <strong>@Model.TotalRevenue.ToString("0.00") <small>EGP</small></strong>
+            <small>Excluding cancelled orders</small>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <section class="dashboard-card">
+            <div class="card-heading">
+                <div>
+                    <span class="dashboard-label">QUICK ACTIONS</span>
+                    <h2>Management</h2>
+                </div>
+            </div>
+
+            <div class="quick-links">
+                <a asp-controller="AdminOrder" asp-action="Index">Orders <span>→</span></a>
+                <a asp-controller="AdminMenu" asp-action="Index">Menu Items <span>→</span></a>
+                <a asp-controller="AdminMenu" asp-action="Create">Add Menu Item <span>→</span></a>
+                <a asp-controller="AdminCategory" asp-action="Index">Categories <span>→</span></a>
+                <a asp-controller="AdminCategory" asp-action="Create">Add Category <span>→</span></a>
+            </div>
+        </section>
+
+        <section class="dashboard-card recent-card">
+            <div class="card-heading">
+                <div>
+                    <span class="dashboard-label">LATEST ACTIVITY</span>
+                    <h2>Recent Orders</h2>
+                </div>
+
+                <a asp-controller="AdminOrder" asp-action="Index">View all</a>
+            </div>
+
+            @if (Model.RecentOrders.Any())
+            {
+                <div class="recent-orders">
+                    @foreach (var order in Model.RecentOrders)
+                    {
+                        <a asp-controller="Order"
+                           asp-action="Confirmation"
+                           asp-route-id="@order.Id"
+                           class="recent-order">
+                            <div>
+                                <strong>#@order.Id</strong>
+                                <span>@order.CustomerName</span>
+                            </div>
+
+                            <div class="recent-order-right">
+                                <span class="recent-status">@order.Status</span>
+                                <strong>@order.TotalAmount.ToString("0.00") EGP</strong>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="dashboard-empty">No orders yet.</div>
+            }
+        </section>
+    </div>
+</div>

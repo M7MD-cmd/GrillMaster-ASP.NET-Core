@@ -1,0 +1,331 @@
+﻿@model GrillMaster.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/login.css"
+          asp-append-version="true" />
+}
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="auth-header">
+            <span class="auth-label">GRILLMASTER</span>
+
+            <h1>Create Account</h1>
+
+            <p>
+                Join GrillMaster and enjoy your favorite meals.
+            </p>
+        </div>
+
+        <form asp-action="Register"
+              asp-controller="Account"
+              method="post"
+              class="auth-form">
+
+            @Html.AntiForgeryToken()
+
+            <!-- Preserve the URL that brought the user here -->
+            <input type="hidden"
+                   name="returnUrl"
+                   value="@ViewData["ReturnUrl"]" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="auth-validation">
+            </div>
+
+
+            <!-- Full Name -->
+
+            <div class="form-group">
+
+                <label asp-for="FullName">
+                    Full Name
+                </label>
+
+                <input asp-for="FullName"
+                       class="auth-input"
+                       placeholder="Enter your full name"
+                       autocomplete="name" />
+
+                <span asp-validation-for="FullName"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="form-group">
+
+                <label asp-for="Email">
+                    Email Address
+                </label>
+
+                <input asp-for="Email"
+                       class="auth-input"
+                       placeholder="Enter your email"
+                       autocomplete="email" />
+
+                <span asp-validation-for="Email"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label asp-for="Password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input asp-for="Password"
+                           class="auth-input"
+                           id="Password"
+                           placeholder="Create a password"
+                           autocomplete="new-password"
+                           oninput="checkPasswordStrength(this.value)" />
+
+                    <button type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('Password', this)"
+                            aria-label="Show password">
+
+                        <span class="eye-icon"></span>
+
+                    </button>
+
+                </div>
+
+                <div class="password-strength">
+
+                    <div class="strength-bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <span id="passwordStrengthText">
+                        Password strength
+                    </span>
+
+                </div>
+
+                <span asp-validation-for="Password"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Confirm Password -->
+
+            <div class="form-group">
+
+                <label asp-for="ConfirmPassword">
+                    Confirm Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input asp-for="ConfirmPassword"
+                           class="auth-input"
+                           id="ConfirmPassword"
+                           placeholder="Confirm your password"
+                           autocomplete="new-password" />
+
+                    <button type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('ConfirmPassword', this)"
+                            aria-label="Show password">
+
+                        <span class="eye-icon"></span>
+
+                    </button>
+
+                </div>
+
+                <span asp-validation-for="ConfirmPassword"
+                      class="field-validation">
+                </span>
+
+            </div>
+
+
+            <!-- Submit -->
+
+            <button type="submit"
+                    class="auth-submit">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+
+        <!-- Footer -->
+
+        <div class="auth-footer">
+
+            <span>
+                Already have an account?
+            </span>
+
+            <a asp-controller="Account"
+               asp-action="Login"
+               asp-route-returnUrl="@ViewData["ReturnUrl"]">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        function togglePassword(inputId, button) {
+
+            const input = document.getElementById(inputId);
+
+            if (!input) return;
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                button.classList.add("password-visible");
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                input.type = "password";
+
+                button.classList.remove("password-visible");
+
+                button.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+            }
+        }
+
+
+        function checkPasswordStrength(password) {
+
+            const strengthContainer =
+                document.querySelector(".password-strength");
+
+            const strengthText =
+                document.getElementById("passwordStrengthText");
+
+            if (!strengthContainer || !strengthText) {
+                return;
+            }
+
+            strengthContainer.classList.remove(
+                "weak",
+                "medium",
+                "good",
+                "strong"
+            );
+
+
+            if (password.length === 0) {
+
+                strengthText.textContent =
+                    "Password strength";
+
+                return;
+            }
+
+
+            let score = 0;
+
+
+            // Length
+
+            if (password.length >= 6) {
+                score++;
+            }
+
+            if (password.length >= 10) {
+                score++;
+            }
+
+
+            // Lowercase
+
+            if (/[a-z]/.test(password)) {
+                score++;
+            }
+
+
+            // Uppercase + number + special character
+
+            if (/[A-Z]/.test(password) &&
+                /[0-9]/.test(password) &&
+                /[^A-Za-z0-9]/.test(password)) {
+
+                score++;
+            }
+
+
+            if (score <= 1) {
+
+                strengthContainer.classList.add("weak");
+
+                strengthText.textContent =
+                    "Weak password";
+
+            } else if (score === 2) {
+
+                strengthContainer.classList.add("medium");
+
+                strengthText.textContent =
+                    "Medium password";
+
+            } else if (score === 3) {
+
+                strengthContainer.classList.add("good");
+
+                strengthText.textContent =
+                    "Good password";
+
+            } else {
+
+                strengthContainer.classList.add("strong");
+
+                strengthText.textContent =
+                    "Strong password";
+            }
+        }
+
+    </script>
+}

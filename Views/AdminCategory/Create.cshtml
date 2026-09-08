@@ -1,0 +1,86 @@
+﻿@model GrillMaster.Models.Category
+
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-category.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-category-page">
+
+    <div class="admin-category-header">
+
+        <div>
+            <span class="admin-category-label">GRILLMASTER ADMIN</span>
+
+            <h1>Add Category</h1>
+
+            <p>Create a new category for your menu.</p>
+        </div>
+
+        <a asp-action="Index" class="category-back-btn">
+            ← Back to Categories
+        </a>
+
+    </div>
+
+    <div class="category-form-card">
+
+        <div class="category-form-header">
+            <h2>New Category</h2>
+            <p>Enter the category name below.</p>
+        </div>
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="category-validation">
+            </div>
+
+            <div class="category-form-group">
+
+                <label asp-for="Name">
+                    Category Name
+                </label>
+
+                <input asp-for="Name"
+                       class="category-input"
+                       placeholder="e.g. Burgers"
+                       autocomplete="off" />
+
+                <span asp-validation-for="Name"
+                      class="category-field-error">
+                </span>
+
+            </div>
+
+            <div class="category-form-actions">
+
+                <a asp-action="Index"
+                   class="category-cancel-btn">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="category-save-btn">
+                    <span>+</span>
+                    Create Category
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

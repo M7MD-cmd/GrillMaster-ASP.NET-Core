@@ -1,0 +1,333 @@
+@model List<GrillMaster.Models.Order>
+
+@{
+    ViewData["Title"] = "Manage Orders";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-orders.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-orders-page">
+
+    <!-- Header -->
+
+    <div class="admin-orders-header">
+
+        <div>
+            <span class="admin-orders-label">
+                GRILLMASTER ADMIN
+            </span>
+
+            <h1>
+                Orders
+            </h1>
+
+            <p>
+                View and manage customer orders.
+            </p>
+        </div>
+
+        <div class="orders-count">
+            <span>
+                @Model.Count
+            </span>
+
+            <small>
+                Total Orders
+            </small>
+        </div>
+
+    </div>
+
+
+    @if (TempData["StatusError"] != null)
+    {
+        <div class="orders-alert">
+            @TempData["StatusError"]
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="orders-empty">
+
+            <div class="orders-empty-icon">
+                #
+            </div>
+
+            <h2>
+                No Orders Found
+            </h2>
+
+            <p>
+                There are currently no customer orders.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <div class="orders-card">
+
+            <div class="orders-card-header">
+
+                <div>
+                    <span class="orders-section-label">
+                        ORDER MANAGEMENT
+                    </span>
+
+                    <h2>
+                        All Orders
+                    </h2>
+                </div>
+
+                <span class="orders-card-count">
+                    @Model.Count orders
+                </span>
+
+            </div>
+
+
+            <div class="orders-table-wrapper">
+
+                <table class="orders-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Order
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Contact
+                            </th>
+
+                            <th>
+                                Address
+                            </th>
+
+                            <th>
+                                Items
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+
+                                <!-- Order ID -->
+
+                                <td>
+
+                                    <span class="order-id">
+                                        #@order.Id
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Customer -->
+
+                                <td>
+
+                                    <div class="customer-name">
+                                        @order.CustomerName
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Contact -->
+
+                                <td>
+
+                                    <span class="customer-phone">
+                                        @order.Phone
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Address -->
+
+                                <td>
+
+                                    <span class="customer-address">
+                                        @order.Address
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Items -->
+
+                                <td>
+
+                                    <span class="items-badge">
+                                        @order.Items.Sum(i => i.Quantity)
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Total -->
+
+                                <td>
+
+                                    <span class="order-total">
+                                        @order.TotalAmount.ToString("0.00")
+                                        EGP
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Date -->
+
+                                <td>
+
+                                    <span class="order-date">
+                                        @order.CreatedAt.ToString(
+                                                 "dd/MM/yyyy HH:mm")
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Status + Update -->
+
+                                <td>
+
+                                    <form asp-controller="AdminOrder"
+                                          asp-action="UpdateStatus"
+                                          method="post"
+                                          class="status-form">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@order.Id" />
+
+                                        <select name="status"
+                                                class="status-select
+                                                       status-@order.Status">
+
+                                            <option value="Pending"
+                                                    selected="@(order.Status == "Pending" ? "selected" : null)">
+                                                Pending
+                                            </option>
+
+                                            <option value="Confirmed"
+                                                    selected="@(order.Status == "Confirmed" ? "selected" : null)">
+                                                Confirmed
+                                            </option>
+
+                                            <option value="Preparing"
+                                                    selected="@(order.Status == "Preparing" ? "selected" : null)">
+                                                Preparing
+                                            </option>
+
+                                            <option value="OutForDelivery"
+                                                    selected="@(order.Status == "OutForDelivery" ? "selected" : null)">
+                                                Out For Delivery
+                                            </option>
+
+                                            <option value="Delivered"
+                                                    selected="@(order.Status == "Delivered" ? "selected" : null)">
+                                                Delivered
+                                            </option>
+
+                                            <option value="Cancelled"
+                                                    selected="@(order.Status == "Cancelled" ? "selected" : null)">
+                                                Cancelled
+                                            </option>
+
+                                        </select>
+
+
+                                        <button type="submit"
+                                                class="order-update-btn">
+
+                                            Update
+
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                                <!-- Action -->
+
+                                <td>
+
+                                    <a asp-controller="Order"
+                                       asp-action="Confirmation"
+                                       asp-route-id="@order.Id"
+                                       class="view-order-btn">
+
+                                        View
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.status-form').forEach(function (form) {
+            form.addEventListener('submit', function () {
+                const button = form.querySelector('button[type="submit"]');
+
+                if (button) {
+                    button.disabled = true;
+                    button.textContent = 'Updating...';
+                }
+            });
+        });
+    </script>
+}

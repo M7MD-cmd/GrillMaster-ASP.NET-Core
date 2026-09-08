@@ -1,0 +1,190 @@
+@model GrillMaster.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/order-confirmation.css"
+          asp-append-version="true" />
+}
+
+<div class="confirmation-page">
+
+    <!-- Success Header -->
+    <section class="confirmation-header">
+
+        <div class="success-icon">
+            <span></span>
+        </div>
+
+        <span class="confirmation-label">GRILLMASTER</span>
+
+        <h1>Order Confirmed!</h1>
+
+        <p class="confirmation-message">
+            Thank you, <strong>@Model.CustomerName</strong>!
+        </p>
+
+        <p class="confirmation-subtitle">
+            Your order has been received successfully.
+        </p>
+
+        <div class="order-meta">
+            <div class="meta-item">
+                <span>ORDER ID</span>
+                <strong>#@Model.Id</strong>
+            </div>
+
+            <div class="meta-divider"></div>
+
+            <div class="meta-item">
+                <span>ORDER DATE</span>
+                <strong>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</strong>
+            </div>
+
+            <div class="meta-divider"></div>
+
+            <div class="meta-item">
+                <span>STATUS</span>
+                <strong class="status-badge">@Model.Status</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Main Content -->
+    <div class="confirmation-content">
+
+        <!-- Delivery Information -->
+        <section class="confirmation-card">
+
+            <div class="card-header">
+                <div class="card-icon delivery-icon">
+                    <span>✓</span>
+                </div>
+
+                <div>
+                    <span class="card-label">DELIVERY</span>
+                    <h2>Delivery Information</h2>
+                </div>
+            </div>
+
+            <div class="delivery-details">
+
+                <div class="detail-item">
+                    <span class="detail-label">ADDRESS</span>
+                    <strong>@Model.Address</strong>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">PHONE</span>
+                    <strong>@Model.Phone</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Order Items -->
+        <section class="confirmation-card order-items-card">
+
+            <div class="card-header">
+                <div class="card-icon food-icon">
+                    <span>+</span>
+                </div>
+
+                <div>
+                    <span class="card-label">YOUR ORDER</span>
+                    <h2>Order Items</h2>
+                </div>
+            </div>
+
+            <div class="items-table-wrapper">
+
+                <table class="items-table">
+
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="product-name">
+                                        @item.MenuItem?.Name
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="quantity-badge">
+                                        @item.Quantity
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @item.UnitPrice.ToString("0.00") EGP
+                                </td>
+
+                                <td>
+                                    <strong class="item-total">
+                                        @item.TotalPrice.ToString("0.00") EGP
+                                    </strong>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <span class="grand-total-label">
+                                    Grand Total
+                                </span>
+                            </td>
+
+                            <td>
+                                <strong class="grand-total">
+                                    @Model.TotalAmount.ToString("0.00") EGP
+                                </strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- Bottom Actions -->
+        <div class="confirmation-actions">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="home-btn">
+                Back to Home
+            </a>
+
+            <a asp-controller="Menu"
+               asp-action="Index"
+               class="menu-btn">
+                Continue Ordering
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

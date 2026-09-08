@@ -1,0 +1,148 @@
+@model GrillMaster.Models.MenuItem
+
+@{
+    ViewData["Title"] = "Delete Menu Item";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-menu.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-menu-page">
+
+    <div class="admin-menu-container">
+
+
+        <!-- Header -->
+        <div class="admin-menu-header">
+
+            <div>
+                <div class="admin-menu-label">
+                    GRILLMASTER ADMIN
+                </div>
+
+                <h1>Delete Menu Item</h1>
+
+                <p>
+                    Review the item before permanently deleting it.
+                </p>
+            </div>
+
+            <a asp-action="Index"
+               class="admin-secondary-btn">
+                ← Back to Menu
+            </a>
+
+        </div>
+
+
+        @if (TempData["DeleteError"] != null)
+        {
+            <div class="menu-delete-alert">
+                @TempData["DeleteError"]
+            </div>
+        }
+
+        <!-- Delete Card -->
+        <div class="admin-delete-card">
+
+
+            <div class="delete-icon">
+                🗑
+            </div>
+
+
+            <h2>
+                Delete this item?
+            </h2>
+
+
+            <p class="delete-description">
+                This action cannot be undone.
+                Please make sure you want to remove this item.
+            </p>
+
+
+            <!-- Item Preview -->
+            <div class="delete-item-preview">
+
+                <div class="delete-item-icon">
+                    🍔
+                </div>
+
+                <div class="delete-item-details">
+
+                    <h3>
+                        @Model.Name
+                    </h3>
+
+                    <div class="delete-item-meta">
+
+                        <span>
+                            #@Model.Id
+                        </span>
+
+                        <span class="delete-category">
+                            @Model.Category?.Name
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="delete-item-price">
+
+                    @Model.Price.ToString("0.00")
+
+                    <small>EGP</small>
+
+                </div>
+
+            </div>
+
+
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <div class="delete-item-description">
+
+                    @Model.Description
+
+                </div>
+            }
+
+
+            <!-- Confirmation -->
+            <form asp-action="DeleteConfirmed"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="id"
+                       value="@Model.Id" />
+
+
+                <div class="delete-actions">
+
+                    <button type="submit"
+                            class="confirm-delete-btn">
+                        Yes, Delete Item
+                    </button>
+
+                    <a asp-action="Index"
+                       class="admin-secondary-btn">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

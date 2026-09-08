@@ -1,0 +1,124 @@
+﻿@model GrillMaster.Models.Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-category.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-category-page">
+
+    <div class="admin-category-header">
+
+        <div>
+            <span class="admin-category-label">GRILLMASTER ADMIN</span>
+
+            <h1>Delete Category</h1>
+
+            <p>Review the category before deleting it.</p>
+        </div>
+
+        <a asp-action="Index" class="category-back-btn">
+            ← Back to Categories
+        </a>
+
+    </div>
+
+    <div class="category-delete-card">
+
+        <div class="delete-warning-icon">
+            ⚠
+        </div>
+
+        <div class="delete-content">
+
+            <span class="delete-label">DELETE CATEGORY</span>
+
+            <h2>Are you sure?</h2>
+
+            <p>
+                You are about to delete the following category:
+            </p>
+
+            <div class="delete-category-info">
+
+                <span class="delete-category-id">
+                    #@Model.Id
+                </span>
+
+                <strong>
+                    @Model.Name
+                </strong>
+
+            </div>
+
+            @if (Model.MenuItems != null && Model.MenuItems.Any())
+            {
+                <div class="delete-danger-message">
+
+                    <strong>Deletion blocked</strong>
+
+                    <p>
+                        This category contains
+                        <strong>@Model.MenuItems.Count</strong>
+                        menu item(s) and cannot be deleted.
+                    </p>
+
+                </div>
+
+                <div class="category-form-actions">
+
+                    <a asp-action="Index"
+                       class="category-cancel-btn">
+                        Back to Categories
+                    </a>
+
+                </div>
+            }
+            else
+            {
+                <div class="delete-warning-message">
+
+                    <strong>This action cannot be undone.</strong>
+
+                    <p>
+                        This category will be permanently removed.
+                    </p>
+
+                </div>
+
+                <form asp-action="DeleteConfirmed"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.Id" />
+
+                    <div class="category-form-actions">
+
+                        <a asp-action="Index"
+                           class="category-cancel-btn">
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="category-confirm-delete-btn">
+                            Delete Category
+                        </button>
+
+                    </div>
+
+                </form>
+            }
+
+        </div>
+
+    </div>
+
+</div>

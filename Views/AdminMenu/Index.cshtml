@@ -1,0 +1,207 @@
+﻿@model List<GrillMaster.Models.MenuItem>
+
+@{
+    ViewData["Title"] = "Manage Menu";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/admin-menu.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-menu-page">
+
+    <div class="admin-menu-container">
+
+        <!-- Header -->
+        <div class="admin-menu-header">
+
+            <div>
+                <div class="admin-menu-label">
+                    GRILLMASTER ADMIN
+                </div>
+
+                <h1>Manage Menu</h1>
+
+                <p>
+                    Add, edit, and manage all menu items.
+                </p>
+            </div>
+
+            <a asp-action="Create"
+               class="add-menu-btn">
+
+                <span>+</span>
+                Add New Item
+
+            </a>
+
+        </div>
+
+
+        <!-- Menu Table -->
+        @if (!Model.Any())
+        {
+            <div class="empty-menu">
+
+                <div class="empty-menu-icon">
+                    🍽
+                </div>
+
+                <h3>No Menu Items</h3>
+
+                <p>
+                    There are currently no menu items available.
+                </p>
+
+                <a asp-action="Create"
+                   class="add-menu-btn">
+                    Add First Item
+                </a>
+
+            </div>
+        }
+        else
+        {
+            <div class="menu-table-card">
+
+                <div class="table-top">
+
+                    <div>
+                        <h3>Menu Items</h3>
+                        <span>
+                            @Model.Count item(s)
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="admin-menu-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>ITEM</th>
+
+                                <th>CATEGORY</th>
+
+                                <th>PRICE</th>
+
+                                <th>DESCRIPTION</th>
+
+                                <th>ACTIONS</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <span class="item-id">
+                                            #@item.Id
+                                        </span>
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="menu-item-name">
+
+                                            <div class="menu-item-icon">
+                                                🍔
+                                            </div>
+
+                                            <strong>
+                                                @item.Name
+                                            </strong>
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="category-badge">
+                                            @item.Category?.Name
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="price-value">
+                                            @item.Price.ToString("0.00")
+                                            <small>EGP</small>
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="description-cell">
+
+                                            @(string.IsNullOrWhiteSpace(item.Description)
+                                                ? "No description"
+                                                : item.Description)
+
+                                        </div>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <div class="action-buttons">
+
+                                            <a asp-action="Edit"
+                                               asp-route-id="@item.Id"
+                                               class="edit-btn">
+
+                                                Edit
+
+                                            </a>
+
+
+                                            <a asp-action="Delete"
+                                               asp-route-id="@item.Id"
+                                               class="delete-btn">
+
+                                                Delete
+
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

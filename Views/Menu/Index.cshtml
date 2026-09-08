@@ -1,0 +1,1475 @@
+@model List<GrillMaster.Models.Category>
+
+@{
+    ViewData["Title"] = "Menu";
+
+    var selectedItems =
+        ViewBag.SelectedItems as List<GrillMaster.Controllers.SelectedOrderItem>
+        ?? new List<GrillMaster.Controllers.SelectedOrderItem>();
+
+    var selectedCount = selectedItems.Sum(x => x.Quantity);
+
+    // Keep menu images independent from the database so the menu can render
+    // correctly even when ImageUrl is empty in the seeded data.
+    var menuImages = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        ["Beef Steak"] = "https://www.foodandwine.com/thmb/5FA-NAln3W2Cmc-N7ydsFlQcOSw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Mistakes-To-Avoid-When-Grilling-Steak-FT-BLOG0622-2000-9470d6138120449885c7b91524c51cc4.jpg",
+        ["Beef Kofta"] = "https://d31qjkbvvkyanm.cloudfront.net/images/recipe-images/grilled-beef-koftas-with-herbed-lemon-yogurt--pickled-onions-detail-40dcbd69.jpg",
+        ["Grilled Chicken"] = "/images/5873160425308884073.jpg",
+        ["Seafood Platter"] = "https://www.billyparisi.com/wp-content/uploads/2023/08/grilled-salmon-1.jpg",
+        ["Beef Skewers"] = "/images/5873160425308884069.jpg",
+        ["Double Burger"] = "/images/5873160425308884068.jpg",
+        ["Mixed Grill Platter"] = "/images/5873160425308884070.jpg",
+        ["Pizza"] = "/images/5873160425308884072.jpg",
+        ["Meatball Pasta"] = "/images/5873160425308884071.jpg",
+        ["Grilled Shrimp"] = "https://www.seriouseats.com/thmb/tmnquAvcdZHQnKchfZ2HhhkRsB8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20250605-SEA-GrilledShrimpHoneyLemon-MelatiCitrawireja-HERO-7ce9f77e2b064052b9b4cf9c3776aaa2.jpg",
+        ["Grilled Chicken Wings"] = "https://hips.hearstapps.com/hmg-prod/images/190418-grilled-chicken-wings-horizontal-3-1556227811.png?crop=1xw:0.8435280189423836xh;center,top&resize=1200:*"
+    };
+}
+
+<div class="menu-page">
+
+    <!-- HERO -->
+    <section class="menu-hero">
+        <div class="menu-hero-content">
+            <span class="menu-eyebrow">GRILLMASTER</span>
+
+            <h1>
+                OUR
+                <span>MENU</span>
+            </h1>
+
+            <p>
+                Fresh ingredients, bold flavors, and perfectly grilled dishes
+                made for every craving.
+            </p>
+        </div>
+    </section>
+
+    <!-- CATEGORY NAVIGATION -->
+    <div class="menu-categories">
+
+        <a href="#all" class="category-link active">
+            All
+        </a>
+
+        @foreach (var category in Model)
+        {
+            <a href="#category-@category.Id" class="category-link">
+                @category.Name
+            </a>
+        }
+
+    </div>
+
+    <!-- MENU -->
+    <main class="menu-content">
+
+        @foreach (var category in Model)
+        {
+            if (category.MenuItems == null || !category.MenuItems.Any())
+            {
+                continue;
+            }
+
+            <section class="menu-category" id="category-@category.Id">
+
+                <div class="category-heading">
+
+                    <div>
+                        <span class="category-label">GRILLMASTER</span>
+                        <h2>@category.Name</h2>
+                    </div>
+
+                    <div class="category-line"></div>
+
+                </div>
+
+                <div class="menu-grid">
+
+                    @foreach (var item in category.MenuItems)
+                    {
+                        var selectedItem =
+                        selectedItems.FirstOrDefault(x => x.MenuItemId == item.Id);
+
+                        var isSelected = selectedItem != null;
+                        var quantity = selectedItem?.Quantity ?? 1;
+
+                        <article class="menu-card @(isSelected ? "is-selected" : "")">
+
+                            <!-- IMAGE -->
+                            <div class="menu-card-image">
+
+                                @{
+                                    var imageUrl = !string.IsNullOrWhiteSpace(item.ImageUrl)
+                                        ? item.ImageUrl
+                                        : (menuImages.TryGetValue(item.Name, out var mappedImage)
+                                            ? mappedImage
+                                            : null);
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(imageUrl))
+                                {
+                                    <img src="@imageUrl"
+                                         alt="@item.Name"
+                                         loading="lazy"
+                                         onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';" />
+
+                                    <div class="menu-no-image image-error-fallback">
+                                        <span>GRILL</span>
+                                        <strong>MASTER</strong>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="menu-no-image">
+                                        <span>GRILL</span>
+                                        <strong>MASTER</strong>
+                                    </div>
+                                }
+
+                                <div class="image-overlay"></div>
+
+                                @if (isSelected)
+                                {
+                                    <div class="selected-badge">
+                                        <span>✓</span>
+                                        Added
+                                    </div>
+                                }
+
+                            </div>
+
+                            <!-- CONTENT -->
+                            <div class="menu-card-content">
+
+                                <div class="menu-card-top">
+
+                                    <h3>@item.Name</h3>
+
+                                    <span class="menu-price">
+                                        @item.Price.ToString("0.00")
+                                        <small>EGP</small>
+                                    </span>
+
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(item.Description))
+                                {
+                                    <p class="menu-description">
+                                        @item.Description
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="menu-description empty-description">
+                                        A delicious GrillMaster specialty prepared
+                                        with premium ingredients.
+                                    </p>
+                                }
+
+                                <!-- ACTIONS -->
+                                <div class="menu-actions">
+
+                                    @if (!isSelected)
+                                    {
+                                    <!-- ADD -->
+                                    <form asp-controller="Menu"
+                                          asp-action="AddToOrder"
+                                          method="post"
+                                          class="menu-action-form ajax-order-form">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="menuItemId"
+                                               value="@item.Id" />
+
+                                        <input type="hidden"
+                                               name="quantity"
+                                               value="1" />
+
+                                        <button type="submit"
+                                                class="add-order-btn">
+
+                                            <span class="btn-icon">+</span>
+                                            <span>Add to Order</span>
+
+                                        </button>
+
+                                    </form>
+                                }
+                                else
+                                {
+                                    <!-- SELECTED STATE -->
+
+                                    <div class="selected-actions">
+
+                                        <!-- QUANTITY -->
+                                        <div class="quantity-wrapper">
+
+                                            <span class="quantity-label">
+                                                Quantity
+                                            </span>
+
+                                            <div class="quantity-control">
+
+                                                <!-- DECREASE -->
+                                                <form asp-controller="Menu"
+                                                      asp-action="UpdateQuantity"
+                                                      method="post">
+
+                                                    @Html.AntiForgeryToken()
+
+                                                    <input type="hidden"
+                                                           name="menuItemId"
+                                                           value="@item.Id" />
+
+                                                    <input type="hidden"
+                                                           name="quantity"
+                                                           value="@(Math.Max(1, quantity - 1))" />
+
+                                                    <button type="submit"
+                                                            class="quantity-btn"
+                                                            aria-label="Decrease quantity">
+                                                        −
+                                                    </button>
+
+                                                </form>
+
+                                                <span class="quantity-number">
+                                                    @quantity
+                                                </span>
+
+                                                <!-- INCREASE -->
+                                                <form asp-controller="Menu"
+                                                      asp-action="UpdateQuantity"
+                                                      method="post">
+
+                                                    @Html.AntiForgeryToken()
+
+                                                    <input type="hidden"
+                                                           name="menuItemId"
+                                                           value="@item.Id" />
+
+                                                    <input type="hidden"
+                                                           name="quantity"
+                                                           value="@(quantity + 1)" />
+
+                                                    <button type="submit"
+                                                            class="quantity-btn"
+                                                            aria-label="Increase quantity">
+                                                        +
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- REMOVE -->
+                                        <form asp-controller="Menu"
+                                              asp-action="RemoveFromOrder"
+                                              method="post"
+                                              class="remove-form">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="menuItemId"
+                                                   value="@item.Id" />
+
+                                            <button type="submit"
+                                                    class="remove-order-btn">
+
+                                                <span>×</span>
+                                                Remove
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                    <!-- ADDED INDICATOR -->
+                                    <div class="added-order-status">
+                                        <span>✓</span>
+                                        Added to Order
+                                    </div>
+                                }
+
+                            </div>
+
+                        </article>
+                    }
+
+                </div>
+
+            </section>
+        }
+
+    </main>
+
+    <!-- FLOATING ORDER BAR -->
+    @if (selectedItems.Any())
+    {
+        <div class="view-order-bar">
+
+            <div class="order-summary">
+
+                <div class="order-summary-icon">
+                    🛒
+                </div>
+
+                <div class="order-summary-text">
+                    <strong>Your Order</strong>
+
+                    <span>
+                        @selectedCount
+                        @(selectedCount == 1 ? "item" : "items")
+                        selected
+                    </span>
+                </div>
+
+            </div>
+
+            <a asp-controller="Order"
+               asp-action="Index"
+               class="view-order-btn">
+
+                View Order
+
+                <span>→</span>
+
+            </a>
+
+        </div>
+    }
+
+</div>
+
+@section Styles {
+
+    <style>
+
+        .menu-page {
+            min-height: 100vh;
+            background: #0c0c0c;
+            color: #fff;
+            padding-bottom: 130px;
+        }
+
+        /* HERO */
+
+        .menu-hero {
+            min-height: 390px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at center,
+                    rgba(255, 193, 7, 0.10),
+                    transparent 45%);
+        }
+
+        .menu-hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-eyebrow {
+            color: #ffc107;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 5px;
+        }
+
+        .menu-hero h1 {
+            margin: 18px 0 15px;
+            font-size: clamp(55px, 8vw, 105px);
+            line-height: .9;
+            font-weight: 900;
+            letter-spacing: -4px;
+        }
+
+        .menu-hero h1 span {
+            display: block;
+            color: #ffc107;
+        }
+
+        .menu-hero p {
+            max-width: 600px;
+            margin: 25px auto 0;
+            color: #999;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* CATEGORY NAV */
+
+        .menu-categories {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            padding: 18px 20px;
+
+            background: rgba(12, 12, 12, .92);
+            backdrop-filter: blur(15px);
+
+            border-top: 1px solid rgba(255,255,255,.04);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .category-link {
+            color: #888;
+            text-decoration: none;
+
+            padding: 10px 20px;
+
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 30px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: .25s ease;
+        }
+
+        .category-link:hover,
+        .category-link.active {
+            color: #0c0c0c;
+            background: #ffc107;
+            border-color: #ffc107;
+        }
+
+        /* CONTENT */
+
+        .menu-content {
+            width: min(1400px, 92%);
+            margin: auto;
+        }
+
+        .menu-category {
+            padding-top: 85px;
+            scroll-margin-top: 90px;
+        }
+
+        .category-heading {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .category-label {
+            color: #ffc107;
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: 800;
+        }
+
+        .category-heading h2 {
+            margin: 6px 0 0;
+            font-size: clamp(30px, 4vw, 48px);
+            font-weight: 900;
+        }
+
+        .category-line {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(
+                to right,
+                rgba(255,193,7,.45),
+                transparent
+            );
+        }
+
+        /* GRID */
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        /* CARD */
+
+        .menu-card {
+            background: #151515;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            overflow: hidden;
+
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+
+            position: relative;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(255,193,7,.35);
+            box-shadow: 0 18px 45px rgba(0,0,0,.4);
+        }
+
+        .menu-card.is-selected {
+            border-color: rgba(255,193,7,.65);
+            box-shadow: 0 0 0 1px rgba(255,193,7,.08);
+        }
+
+        /* IMAGE */
+
+        .menu-card-image {
+            height: 245px;
+            position: relative;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .menu-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+
+            transition: transform .5s ease;
+        }
+
+        .menu-card:hover .menu-card-image img {
+            transform: scale(1.06);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(
+                to top,
+                rgba(0,0,0,.7),
+                transparent 55%
+            );
+
+            pointer-events: none;
+        }
+
+        .menu-no-image {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,193,7,.12),
+                    transparent 60%
+                );
+
+            color: #555;
+            letter-spacing: 4px;
+        }
+
+        .menu-no-image strong {
+            color: #ffc107;
+        }
+
+        /* BADGE */
+
+        .selected-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            padding: 8px 12px;
+
+            background: #ffc107;
+            color: #111;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* CONTENT */
+
+        .menu-card-content {
+            padding: 22px;
+        }
+
+        .menu-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .menu-card-top h3 {
+            margin: 0;
+            font-size: 21px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .menu-price {
+            color: #ffc107;
+            font-size: 17px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .menu-price small {
+            font-size: 9px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .menu-description {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+            min-height: 66px;
+            margin: 15px 0 20px;
+        }
+
+        .empty-description {
+            opacity: .5;
+        }
+
+        /* ADD */
+
+        .menu-action-form {
+            margin: 0;
+        }
+
+        .add-order-btn {
+            width: 100%;
+            height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+
+            background: transparent;
+            color: #ffc107;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .25s ease;
+        }
+
+        .add-order-btn:hover {
+            background: #ffc107;
+            color: #111;
+        }
+
+        .btn-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* SELECTED ACTIONS */
+
+        .selected-actions {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .quantity-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .quantity-label {
+            color: #666;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+
+            height: 42px;
+
+            background: #0e0e0e;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 9px;
+            overflow: hidden;
+        }
+
+        .quantity-control form {
+            margin: 0;
+            height: 100%;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 100%;
+
+            border: 0;
+            background: transparent;
+            color: #ffc107;
+
+            font-size: 20px;
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .quantity-btn:hover {
+            background: rgba(255,193,7,.1);
+        }
+
+        .quantity-number {
+            width: 34px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        /* REMOVE */
+
+        .remove-form {
+            margin: 0;
+        }
+
+        .remove-order-btn {
+            height: 42px;
+            padding: 0 14px;
+
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 9px;
+
+            background: transparent;
+            color: #777;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+        }
+
+        .remove-order-btn span {
+            font-size: 18px;
+            vertical-align: -1px;
+        }
+
+        .remove-order-btn:hover {
+            color: #ff5c5c;
+            border-color: rgba(255,92,92,.4);
+        }
+
+        /* ADDED STATUS */
+
+        .added-order-status {
+            margin-top: 13px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            color: #ffc107;
+
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .added-order-status span {
+            width: 18px;
+            height: 18px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+            background: #ffc107;
+            color: #111;
+
+            font-size: 10px;
+        }
+
+        /* VIEW ORDER */
+
+        .view-order-bar {
+            position: fixed;
+            z-index: 100;
+
+            bottom: 22px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(700px, calc(100% - 30px));
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+            padding: 13px 14px 13px 18px;
+
+            background: rgba(22,22,22,.96);
+            backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255,193,7,.3);
+            border-radius: 15px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.55),
+                0 0 30px rgba(255,193,7,.06);
+        }
+
+        .order-summary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .order-summary-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255,193,7,.1);
+            border-radius: 10px;
+
+            font-size: 17px;
+        }
+
+        .order-summary-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .order-summary-text strong {
+            font-size: 13px;
+        }
+
+        .order-summary-text span {
+            color: #777;
+            font-size: 11px;
+        }
+
+        .view-order-btn {
+            min-width: 145px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+
+            border-radius: 10px;
+
+            background: #ffc107;
+            color: #111;
+
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+
+            transition: .25s ease;
+        }
+
+        .view-order-btn:hover {
+            background: #fff;
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        .view-order-btn span {
+            font-size: 18px;
+        }
+
+        /* RESPONSIVE */
+
+        @@media (max-width: 1100px) {
+
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @@media (max-width: 700px) {
+
+            .menu-hero {
+                min-height: 320px;
+            }
+
+            .menu-hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .menu-categories {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+
+            .category-link {
+                white-space: nowrap;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-heading {
+                gap: 15px;
+            }
+
+            .category-line {
+                display: none;
+            }
+
+            .menu-card-image {
+                height: 230px;
+            }
+
+            .view-order-bar {
+                bottom: 12px;
+            }
+
+            .view-order-btn {
+                min-width: 120px;
+            }
+
+        }
+
+        @@media (max-width: 450px) {
+
+            .view-order-bar {
+                padding: 10px;
+            }
+
+            .order-summary-icon {
+                display: none;
+            }
+
+            .order-summary-text strong {
+                font-size: 12px;
+            }
+
+            .view-order-btn {
+                min-width: 115px;
+                height: 42px;
+            }
+
+            .selected-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .quantity-control {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .quantity-number {
+                flex: 1;
+            }
+
+            .remove-order-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+}
+@section Scripts {
+
+    <script>
+
+        document.addEventListener("submit", async function (event) {
+
+            const form = event.target.closest(".ajax-order-form");
+
+            if (!form) {
+                return;
+            }
+
+            // Stop normal form submission
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (form.dataset.loading === "true") {
+                return;
+            }
+
+            form.dataset.loading = "true";
+
+            try {
+
+                const response = await fetch(
+                    form.action,
+                    {
+                        method: "POST",
+                        body: new FormData(form),
+                        headers: {
+                            "X-Requested-With": "XMLHttpRequest"
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Request failed");
+                }
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(
+                        data.message || "Request failed"
+                    );
+                }
+
+                const card = form.closest(".menu-card");
+
+                if (!card) {
+                    return;
+                }
+
+                const actions = card.querySelector(".menu-actions");
+
+                if (!actions) {
+                    return;
+                }
+
+                const menuItemId =
+                    form.querySelector(
+                        '[name="menuItemId"]'
+                    )?.value;
+
+                const isRemove =
+                    form.classList.contains("remove-form");
+
+                const isAdd =
+                    form.classList.contains("menu-action-form");
+
+
+                // ============================================
+                // REMOVE
+                // ============================================
+
+                if (isRemove) {
+
+                    card.classList.remove("is-selected");
+
+                    const badge =
+                        card.querySelector(".selected-badge");
+
+                    if (badge) {
+                        badge.remove();
+                    }
+
+                    actions.innerHTML = `
+
+                        <form
+                            action="/Menu/AddToOrder"
+                            method="post"
+                            class="menu-action-form ajax-order-form">
+
+                            <input
+                                name="__RequestVerificationToken"
+                                type="hidden"
+                                value="${getToken()}">
+
+                            <input
+                                type="hidden"
+                                name="menuItemId"
+                                value="${menuItemId}">
+
+                            <input
+                                type="hidden"
+                                name="quantity"
+                                value="1">
+
+                            <button
+                                type="submit"
+                                class="add-order-btn">
+
+                                <span class="btn-icon">+</span>
+                                <span>Add to Order</span>
+
+                            </button>
+
+                        </form>
+
+                    `;
+                }
+
+
+                // ============================================
+                // ADD
+                // ============================================
+
+                else if (isAdd) {
+
+                    card.classList.add("is-selected");
+
+                    const image =
+                        card.querySelector(".menu-card-image");
+
+                    if (
+                        image &&
+                        !image.querySelector(".selected-badge")
+                    ) {
+
+                        image.insertAdjacentHTML(
+                            "beforeend",
+                            `
+                            <div class="selected-badge">
+                                <span>✓</span>
+                                Added
+                            </div>
+                            `
+                        );
+                    }
+
+                    actions.innerHTML = createSelectedActions(
+                        menuItemId,
+                        data.quantity
+                    );
+                }
+
+
+                // ============================================
+                // UPDATE QUANTITY
+                // ============================================
+
+                else {
+
+                    actions.innerHTML = createSelectedActions(
+                        menuItemId,
+                        data.quantity
+                    );
+                }
+
+
+                // Update order count
+
+                updateOrderCount(
+                    data.totalCount
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Order request error:",
+                    error
+                );
+
+                // IMPORTANT:
+                // No page reload here.
+            }
+            finally {
+
+                form.dataset.loading = "false";
+            }
+
+        });
+
+
+        // ============================================
+        // TOKEN
+        // ============================================
+
+        function getToken() {
+
+            const token =
+                document.querySelector(
+                    'input[name="__RequestVerificationToken"]'
+                );
+
+            return token
+                ? token.value
+                : "";
+        }
+
+
+        // ============================================
+        // SELECTED ACTIONS
+        // ============================================
+
+        function createSelectedActions(
+            menuItemId,
+            quantity
+        ) {
+
+            return `
+
+                <div class="selected-actions">
+
+                    <div class="quantity-wrapper">
+
+                        <span class="quantity-label">
+                            Quantity
+                        </span>
+
+                        <div class="quantity-control">
+
+                            <!-- DECREASE -->
+
+                            <form
+                                action="/Menu/UpdateQuantity"
+                                method="post"
+                                class="ajax-order-form">
+
+                                <input
+                                    name="__RequestVerificationToken"
+                                    type="hidden"
+                                    value="${getToken()}">
+
+                                <input
+                                    type="hidden"
+                                    name="menuItemId"
+                                    value="${menuItemId}">
+
+                                <input
+                                    type="hidden"
+                                    name="quantity"
+                                    value="${Math.max(
+                                        1,
+                                        quantity - 1
+                                    )}">
+
+                                <button
+                                    type="submit"
+                                    class="quantity-btn">
+
+                                    −
+
+                                </button>
+
+                            </form>
+
+
+                            <!-- NUMBER -->
+
+                            <span class="quantity-number">
+                                ${quantity}
+                            </span>
+
+
+                            <!-- INCREASE -->
+
+                            <form
+                                action="/Menu/UpdateQuantity"
+                                method="post"
+                                class="ajax-order-form">
+
+                                <input
+                                    name="__RequestVerificationToken"
+                                    type="hidden"
+                                    value="${getToken()}">
+
+                                <input
+                                    type="hidden"
+                                    name="menuItemId"
+                                    value="${menuItemId}">
+
+                                <input
+                                    type="hidden"
+                                    name="quantity"
+                                    value="${quantity + 1}">
+
+                                <button
+                                    type="submit"
+                                    class="quantity-btn">
+
+                                    +
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REMOVE -->
+
+                    <form
+                        action="/Menu/RemoveFromOrder"
+                        method="post"
+                        class="remove-form ajax-order-form">
+
+                        <input
+                            name="__RequestVerificationToken"
+                            type="hidden"
+                            value="${getToken()}">
+
+                        <input
+                            type="hidden"
+                            name="menuItemId"
+                            value="${menuItemId}">
+
+                        <button
+                            type="submit"
+                            class="remove-order-btn">
+
+                            <span>×</span>
+                            Remove
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <div class="added-order-status">
+
+                    <span>✓</span>
+                    Added to Order
+
+                </div>
+
+            `;
+        }
+
+
+        // ============================================
+        // UPDATE ORDER COUNT
+        // ============================================
+
+                function updateOrderCount(totalCount) {
+
+            let orderBar =
+                document.querySelector(".view-order-bar");
+
+            // If there are no selected items
+            if (totalCount <= 0) {
+
+                if (orderBar) {
+                    orderBar.remove();
+                }
+
+                return;
+            }
+
+
+            // If the order bar doesn't exist yet,
+            // create it after the first Add to Order
+            if (!orderBar) {
+
+                orderBar = document.createElement("div");
+
+                orderBar.className = "view-order-bar";
+
+                orderBar.innerHTML = `
+
+                    <div class="order-summary">
+
+                        <div class="order-summary-icon">
+                            🛒
+                        </div>
+
+                        <div class="order-summary-text">
+
+                            <strong>
+                                Your Order
+                            </strong>
+
+                            <span>
+                                ${totalCount}
+                                ${totalCount === 1 ? "item" : "items"}
+                                selected
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="/Order/Index"
+                        class="view-order-btn">
+
+                        View Order
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+                `;
+
+                document
+                    .querySelector(".menu-page")
+                    .appendChild(orderBar);
+            }
+
+
+            // Update count
+
+            const count =
+                orderBar.querySelector(
+                    ".order-summary-text span"
+                );
+
+            if (count) {
+
+                count.textContent =
+                    `${totalCount} ${
+                        totalCount === 1
+                            ? "item"
+                            : "items"
+                    } selected`;
+            }
+        }
+
+    </script>
+
+}

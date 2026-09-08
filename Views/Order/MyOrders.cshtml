@@ -1,0 +1,136 @@
+﻿@model List<GrillMaster.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/my-orders.css"
+          asp-append-version="true" />
+}
+
+<div class="my-orders-page">
+
+    <div class="orders-header">
+
+        <span class="orders-label">
+            GRILLMASTER
+        </span>
+
+        <h1>My Orders</h1>
+
+        <p>
+            Track your orders and view your order history.
+        </p>
+
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="empty-orders">
+
+            <div class="empty-icon">
+                🍽
+            </div>
+
+            <h2>No Orders Yet</h2>
+
+            <p>
+                You haven't placed any orders yet.
+            </p>
+
+            <a asp-controller="Menu"
+               asp-action="Index"
+               class="browse-menu-btn">
+                Browse Menu
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="orders-grid">
+
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
+
+                    <div class="order-card-header">
+
+                        <div>
+                            <span class="order-number">
+                                Order #@order.Id
+                            </span>
+
+                            <span class="order-date">
+                                @order.CreatedAt.ToString("dd MMM yyyy - hh:mm tt")
+                            </span>
+                        </div>
+
+                        <span class="order-status @order.Status.ToLowerInvariant()">
+                            @order.Status
+                        </span>
+
+                    </div>
+
+
+                    <div class="order-items">
+
+                        @foreach (var item in order.Items)
+                        {
+                            <div class="order-item">
+
+                                <div class="item-info">
+
+                                    <strong>
+                                        @item.MenuItem?.Name
+                                    </strong>
+
+                                    <span>
+                                        Quantity: @item.Quantity
+                                    </span>
+
+                                </div>
+
+                                <strong>
+                                    @item.TotalPrice.ToString("0.00") EGP
+                                </strong>
+
+                            </div>
+                        }
+
+                    </div>
+
+
+                    <div class="order-card-footer">
+
+                        <div class="order-total">
+
+                            <span>Total</span>
+
+                            <strong>
+                                @order.TotalAmount.ToString("0.00") EGP
+                            </strong>
+
+                        </div>
+
+                        <a asp-controller="Order"
+                           asp-action="Confirmation"
+                           asp-route-id="@order.Id"
+                           class="view-order-btn">
+
+                            View Details
+
+                        </a>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

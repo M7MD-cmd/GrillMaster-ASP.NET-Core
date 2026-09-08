@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/login.css"
+          asp-append-version="true" />
+}
+
+<div class="auth-page">
+
+    <div class="auth-card access-denied-card">
+
+        <div class="access-denied-icon">
+            !
+        </div>
+
+        <div class="auth-header">
+
+            <span class="auth-label">
+                GRILLMASTER
+            </span>
+
+            <h1>Access Denied</h1>
+
+            <p>
+                You don't have permission to access this page.
+            </p>
+
+        </div>
+
+        <div class="access-denied-actions">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="auth-submit access-home-btn">
+                Back to Home
+            </a>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="access-logout-btn">
+                        Logout
+                    </button>
+
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account"
+                   asp-action="Login"
+                   class="access-logout-btn">
+                    Login
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+</div>

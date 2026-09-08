@@ -1,0 +1,126 @@
+@{
+    ViewData["Title"] = "About / Contact";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/about.css" />
+}
+
+<!-- MAIN -->
+<main>
+    <div class="box">
+        <h2>About Us</h2>
+
+        <p class="story-text fade p1">
+            Grill Master began as a humble street-side grill in
+            <span style="color: #d4aa00">1995</span>, founded by a passionate chef
+            who believed that real flavor comes only from real fire. With a small
+            charcoal pit and a handful of secret spice mixes passed down through
+            generations, the restaurant quickly became a hidden gem for meat
+            lovers.
+        </p>
+
+        <p class="story-text fade p2">
+            As word spread, Grill Master transformed from a simple family shop
+            into a thriving culinary destination. By the early
+            <span style="color: #d4aa00">2000s</span>, our dedication helped us
+            win several regional awards.
+        </p>
+
+        <p class="story-text fade p3">
+            As our reputation grew, Grill Master entered multiple international
+            culinary competitions and proudly earned several awards—establishing
+            ourselves globally.
+        </p>
+
+        <p class="story-text fade p4">
+            Today, Grill Master is a worldwide brand known for excellence in
+            charcoal grilling. We continue delivering bold flavors and warm
+            hospitality across the globe.
+        </p>
+    </div>
+
+    <div class="box">
+        <h2>Contact Us</h2>
+
+        <div class="form-box">
+            <form id="contactForm">
+                <input type="text" placeholder="Your Name" required />
+                <input type="text" placeholder="Phone Number" required />
+                <textarea placeholder="Write your complaint here..." required></textarea>
+                <button type="submit">Send Complaint</button>
+            </form>
+        </div>
+
+        <div class="icons">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="#"><i class="fab fa-tiktok fa-2x"></i></a>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <script>
+        const form = document.querySelector("#contactForm");
+        const nameInput = form.querySelector('input[placeholder="Your Name"]');
+        const phoneInput = form.querySelector('input[placeholder="Phone Number"]');
+        const messageInput = form.querySelector("textarea");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            removeErrors();
+
+            let valid = true;
+
+            const nameValue = nameInput.value.trim();
+            const nameRegex = /^[A-Za-z\u0600-\u06FF ]+$/;
+
+            if (nameValue.length < 3) {
+                showError(nameInput, "Name must be at least 3 characters");
+                valid = false;
+            } else if (!nameRegex.test(nameValue)) {
+                showError(nameInput, "Name must contain letters only");
+                valid = false;
+            } else if (nameValue.split(" ").length < 2) {
+                showError(nameInput, "Please enter full name (first & last)");
+                valid = false;
+            }
+
+            const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
+            if (!phoneRegex.test(phoneInput.value.trim())) {
+                showError(phoneInput, "Enter a valid Egyptian phone number");
+                valid = false;
+            }
+
+            if (messageInput.value.trim().length < 10) {
+                showError(messageInput, "Message must be at least 10 characters");
+                valid = false;
+            }
+
+            if (valid) {
+                alert("✅ Form submitted successfully!");
+                form.reset();
+            }
+        });
+
+        function showError(input, message) {
+            input.style.borderColor = "#ff4d4d";
+            const error = document.createElement("small");
+            error.textContent = message;
+            error.style.color = "#ff4d4d";
+            error.style.display = "block";
+            error.style.marginTop = "5px";
+            input.parentNode.appendChild(error);
+        }
+
+        function removeErrors() {
+            document.querySelectorAll("small").forEach(e => e.remove());
+            document.querySelectorAll("input, textarea").forEach(el => {
+                el.style.borderColor = "#d4aa0055";
+            });
+        }
+    </script>
+}

@@ -1,0 +1,95 @@
+@{
+    ViewData["Title"] = "Branches";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/branches.css" />
+}
+
+<!-- BRANCHES -->
+<h2 class="section-title">Our Branches</h2>
+
+<div class="container">
+    <div class="row g-4">
+        <!-- Nasr City Branch -->
+        <div class="col-md-4">
+            <div class="p-3 branch-card">
+                <h4>Nasr City Branch</h4>
+                <p>📍 Abbas El Akkad Street</p>
+                <p>📞 01012345678</p>
+                <p>📞 01098765432</p>
+                <p>📧 nasrcity@@grillmaster.com</p>
+
+                <iframe src="https://www.google.com/maps?q=Abbas+El+Akkad+Street+Nasr+City+Cairo+Egypt&output=embed"
+                    width="100%" height="200" style="border: 1px solid #f4b41a; border-radius: 10px" allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Maadi Branch -->
+        <div class="col-md-4">
+            <div class="p-3 branch-card">
+                <h4>Maadi Branch</h4>
+                <p>📍 Street 9 – Maadi</p>
+                <p>📞 01087654321</p>
+                <p>📞 01012344321</p>
+                <p>📧 maadi@@grillmaster.com</p>
+
+                <iframe src="https://www.google.com/maps?q=Street+9+Maadi+Cairo+Egypt&output=embed" width="100%" height="200"
+                    style="border: 1px solid #f4b41a; border-radius: 10px" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Heliopolis Branch -->
+        <div class="col-md-4">
+            <div class="p-3 branch-card">
+                <h4>Heliopolis Branch</h4>
+                <p>📍 Roxy Square</p>
+                <p>📞 01055553333</p>
+                <p>📞 01044442222</p>
+                <p>📧 heliopolis@@grillmaster.com</p>
+
+                <iframe src="https://www.google.com/maps?q=Roxy+Square+Heliopolis+Cairo+Egypt&output=embed" width="100%"
+                    height="200" style="border: 1px solid #f4b41a; border-radius: 10px" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT US -->
+<h2 class="section-title">Contact Us</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 contact-card">
+            <p id="hotline">📞 Hotline: 19002</p>
+            <p id="Email">📧 Email: info@@grillmaster.com</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hotline = document.getElementById("hotline");
+            const email = document.getElementById("Email");
+
+            if (hotline) {
+                hotline.addEventListener("click", function () {
+                    window.location.href = "tel:19002";
+                    alert("Thank for contact us");
+                });
+            }
+
+            if (email) {
+                email.addEventListener("click", function () {
+                    window.location.href = "mailto:info@@grillmaster.com";
+                    alert("Thank for contact us");
+                });
+            }
+        });
+    </script>
+}

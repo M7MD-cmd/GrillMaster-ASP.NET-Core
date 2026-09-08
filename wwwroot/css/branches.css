@@ -1,0 +1,45 @@
+/* ========== خاص بصفحة Branches بس ========== */
+
+body {
+  background-color: #000;
+  background-image: url("/images/ChatGPT Image Nov 22, 2025, 12_37_48 AM.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #f4b41a;
+}
+
+.section-title {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #f4b41a;
+}
+
+.branch-card {
+  background-color: #111;
+  border: 1px solid #f4b41a;
+  color: #f4b41a;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.contact-card {
+  background-color: #111;
+  border: 1px solid #f4b41a;
+  color: #f4b41a;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+#hotline,
+#Email {
+  cursor: pointer;
+}
+
+#hotline:hover,
+#Email:hover {
+  color: white;
+}

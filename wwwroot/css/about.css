@@ -1,0 +1,120 @@
+/* ========== خاص بصفحة About بس ========== */
+
+html,
+body {
+  min-height: 100%;
+  background: url("/images/5922376717546752881.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+body {
+  animation: fadeBg 1.5s ease-in-out;
+}
+
+@keyframes fadeBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeParagraph {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade { opacity: 0; animation: fadeParagraph 1s forwards; }
+.p1 { animation-delay: 0s; }
+.p2 { animation-delay: 1s; }
+.p3 { animation-delay: 2s; }
+.p4 { animation-delay: 3s; }
+
+/* =================== MAIN =================== */
+main {
+  max-width: 900px;
+  margin: 120px auto 40px auto;
+  padding-bottom: 40px;
+}
+
+/* =================== BOXES =================== */
+.box {
+  background: #000;
+  border: 2px solid #d4aa0055;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 25px #d4aa0040;
+  animation: fadeUp 1s ease;
+}
+
+h2 {
+  color: #d4aa00;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.story-text {
+  font-style: italic;
+  line-height: 1.9;
+  font-size: 18px;
+  letter-spacing: 0.3px;
+}
+
+/* =================== CONTACT FORM =================== */
+.form-box { padding: 0 15px; }
+
+.form-box input,
+.form-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: #111;
+  color: #fff;
+  border: 1px solid #d4aa0055;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.form-box textarea {
+  height: 120px;
+  resize: none;
+}
+
+.form-box button {
+  width: 100%;
+  padding: 12px;
+  background: #d4aa00;
+  color: #000;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-box button:hover {
+  background: #b48b00;
+  transform: translateY(-2px);
+}
+
+/* =================== SOCIAL ICONS =================== */
+.icons {
+  margin-top: 25px;
+  text-align: center;
+  animation: zoomIcons 1s ease;
+}
+
+.icons a i {
+  color: #d4aa00;
+  margin: 0 15px;
+  transition: 0.3s ease;
+}
+
+.icons a i:hover {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 8px #d4aa00);
+}

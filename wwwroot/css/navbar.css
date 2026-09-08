@@ -1,0 +1,806 @@
+/* =========================================
+   GRILL MASTER - NAVBAR
+   ========================================= */
+
+.custom-nav {
+    display: grid;
+    grid-template-columns: 180px auto 1fr;
+    align-items: center;
+    min-height: 80px;
+    padding: 10px 32px;
+    background: #000;
+    border-bottom: 2px solid #d4aa00;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-logo {
+    width: auto;
+    height: 52px;
+    transition: transform 0.3s ease;
+}
+
+    .nav-logo:hover {
+        transform: scale(1.05);
+    }
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+}
+
+.restaurant-name-link {
+    text-decoration: none;
+}
+
+.restaurant-name {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    background: linear-gradient( to right, #ff8c00, #ffffff );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.restaurant-name-link:hover .restaurant-name {
+    transform: scale(1.03);
+}
+
+
+/* =========================================
+   RIGHT SIDE
+   ========================================= */
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+    min-width: 0;
+}
+
+
+/* =========================================
+   MAIN LINKS
+   ========================================= */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+    .nav-links > a {
+        position: relative;
+        color: #f3b462;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+        .nav-links > a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -7px;
+            width: 0;
+            height: 2px;
+            background: #d4aa00;
+            transition: width 0.25s ease;
+        }
+
+        .nav-links > a:hover {
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+            .nav-links > a:hover::after {
+                width: 100%;
+            }
+
+
+/* =========================================
+   ACCOUNT AREA
+   ========================================= */
+
+.nav-account {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-left: 18px;
+    border-left: 1px solid #333;
+    flex-wrap: nowrap;
+}
+
+    .nav-account > a,
+    .nav-account > form {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+
+/* =========================================
+   USER INFO
+   ========================================= */
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 190px;
+}
+
+.user-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 50%;
+    font-size: 15px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.user-label {
+    color: #666;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.user-name {
+    max-width: 145px;
+    overflow: hidden;
+    color: #f3b462;
+    font-size: 12px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ADMIN PANEL
+   ========================================= */
+
+.admin-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border-radius: 5px;
+    background: #d4aa00;
+    color: #000 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .admin-nav-link::after {
+        display: none !important;
+    }
+
+    .admin-nav-link:hover {
+        background: #f3c62e;
+        color: #000 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(212, 170, 0, 0.2);
+    }
+
+
+/* =========================================
+   MY ORDERS
+   ========================================= */
+
+.my-orders-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    box-sizing: border-box;
+    color: #f5b400 !important;
+    text-decoration: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border: 1px solid rgba(245, 180, 0, 0.45);
+    border-radius: 8px;
+    background: rgba(245, 180, 0, 0.06);
+    white-space: nowrap;
+    transition: all 0.25s ease;
+}
+
+    .my-orders-nav-link:hover {
+        color: #111 !important;
+        background: #f5b400;
+        border-color: #f5b400;
+        text-decoration: none !important;
+        transform: translateY(-1px);
+    }
+
+    .my-orders-nav-link:focus,
+    .my-orders-nav-link:active {
+        color: #111 !important;
+        text-decoration: none !important;
+    }
+
+
+/* =========================================
+   LOGOUT
+   ========================================= */
+
+.logout-form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.logout-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 16px;
+    margin: 0;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: transparent;
+    color: #aaa;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 1;
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+    .logout-nav-btn:hover {
+        color: #fff;
+        border-color: #d4aa00;
+        background: #151515;
+    }
+
+
+/* =========================================
+   GUEST AUTH
+   ========================================= */
+
+.guest-auth-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 18px;
+}
+
+.login-nav-link,
+.register-nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+
+
+/* Login */
+
+.login-nav-link {
+    color: #fff !important;
+    border: 1px solid rgba(255, 193, 7, 0.45);
+    background: transparent;
+}
+
+    .login-nav-link:hover {
+        color: #ffc107 !important;
+        border-color: #ffc107;
+        background: rgba(255, 193, 7, 0.08);
+        transform: translateY(-1px);
+    }
+
+
+/* Register */
+
+.register-nav-link {
+    color: #111 !important;
+    background: #ffc107;
+    border: 1px solid #ffc107;
+    box-shadow: 0 4px 14px rgba(255, 193, 7, 0.18);
+}
+
+    .register-nav-link:hover {
+        color: #111 !important;
+        background: #ffca2c;
+        border-color: #ffca2c;
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.28);
+        transform: translateY(-1px);
+    }
+
+
+/* =========================================
+   BODY
+   ========================================= */
+
+body {
+    margin: 0;
+    padding-top: 80px;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+
+/* =========================================
+   MOBILE MENU BUTTON
+   Hidden on desktop
+   ========================================= */
+
+.mobile-menu-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    border: 1px solid rgba(212, 170, 0, 0.55);
+    border-radius: 8px;
+    background: #111;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+    .mobile-menu-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 10px;
+        background: #d4aa00;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+        background: #181818;
+        border-color: #d4aa00;
+    }
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+    border-top: 1px solid #444;
+    padding: 20px 0 10px;
+    background-color: #000;
+}
+
+.footer-content {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-left .footer-brand {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d4aa00;
+}
+
+.footer-left .footer-tagline {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.footer-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 14px;
+}
+
+    .footer-links a {
+        color: #f5f5f5;
+        text-decoration: none;
+        opacity: 0.8;
+        transition: 0.3s;
+    }
+
+        .footer-links a:hover {
+            color: #d4aa00;
+            opacity: 1;
+        }
+
+.footer-bottom {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+}
+
+
+/* =========================================
+   DESKTOP / LAPTOP
+   ========================================= */
+
+@media (max-width: 1400px) {
+
+    .custom-nav {
+        grid-template-columns: 130px auto 1fr;
+        padding: 10px 20px;
+    }
+
+    .nav-center {
+        padding: 0 15px;
+    }
+
+    .restaurant-name {
+        font-size: 24px;
+    }
+
+    .nav-right {
+        gap: 14px;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+        .nav-links > a {
+            font-size: 14px;
+        }
+
+    .user-info {
+        max-width: 140px;
+    }
+
+    .user-name {
+        max-width: 100px;
+    }
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .custom-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+    .nav-left {
+        order: 1;
+    }
+
+    .nav-center {
+        order: 2;
+    }
+
+    .nav-right {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        padding-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    body {
+        padding-top: 125px;
+    }
+}
+
+
+/* =========================================
+   MOBILE NAVBAR
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    /*
+       Only the navbar changes here.
+       The rest of the website keeps its existing layout.
+    */
+
+    .custom-nav {
+        display: grid;
+        grid-template-columns: 55px 1fr 55px;
+        grid-template-rows: 60px auto;
+        align-items: center;
+        min-height: 60px;
+        padding: 7px 12px;
+        box-sizing: border-box;
+    }
+
+
+    /* Logo */
+
+    .nav-left {
+        grid-column: 1;
+        grid-row: 1;
+        justify-content: flex-start;
+    }
+
+    .nav-logo {
+        height: 42px;
+        width: auto;
+    }
+
+
+    /* Brand */
+
+    .nav-center {
+        grid-column: 2;
+        grid-row: 1;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .restaurant-name {
+        font-size: 20px;
+        letter-spacing: 0.5px;
+    }
+
+
+    /* Hamburger */
+
+    .mobile-menu-toggle {
+        display: flex;
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+        margin: 0;
+    }
+
+
+    /* Hide normal desktop navigation */
+
+    .nav-right {
+        display: none;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        width: 100%;
+        padding: 12px 0 5px;
+        margin: 0;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 12px;
+        border-top: 1px solid #292929;
+    }
+
+
+        /* Open mobile menu */
+
+        .nav-right.mobile-open {
+            display: flex;
+        }
+
+
+    /* Main links */
+
+    .nav-links {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+
+        .nav-links > a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 42px;
+            padding: 8px 12px;
+            box-sizing: border-box;
+            border-radius: 7px;
+            background: #0d0d0d;
+            border: 1px solid #202020;
+            color: #f3b462;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+            .nav-links > a::after {
+                display: none;
+            }
+
+            .nav-links > a:hover {
+                background: #171717;
+                border-color: #d4aa00;
+                color: #fff;
+                transform: none;
+            }
+
+
+    /* Account */
+
+    .nav-account {
+        width: 100%;
+        padding: 10px 0 0;
+        border-left: none;
+        border-top: 1px solid #292929;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 7px;
+    }
+
+
+    /* User information */
+
+    .user-info {
+        width: 100%;
+        max-width: none;
+        justify-content: center;
+        padding: 5px 0;
+    }
+
+    .user-name {
+        max-width: 180px;
+    }
+
+
+    /* Admin / My Orders / Logout */
+
+    .admin-nav-link,
+    .my-orders-nav-link,
+    .logout-form {
+        width: 100%;
+    }
+
+    .admin-nav-link,
+    .my-orders-nav-link {
+        height: 42px;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 7px;
+    }
+
+
+    .logout-nav-btn {
+        width: 100%;
+        height: 42px;
+        border-radius: 7px;
+    }
+
+
+    /* Guest buttons */
+
+    .guest-auth-links {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        gap: 8px;
+        padding-top: 4px;
+    }
+
+    .login-nav-link,
+    .register-nav-link {
+        flex: 1;
+        height: 42px;
+        padding: 0 10px;
+    }
+
+
+    /* Body only gets enough room for the compact navbar */
+
+    body {
+        padding-top: 76px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 450px) {
+
+    .custom-nav {
+        grid-template-columns: 48px 1fr 48px;
+        padding: 7px 10px;
+    }
+
+    .nav-logo {
+        height: 38px;
+    }
+
+    .restaurant-name {
+        font-size: 18px;
+    }
+
+    .mobile-menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 350px) {
+
+    .custom-nav {
+        grid-template-columns: 45px 1fr 45px;
+    }
+
+    .nav-logo {
+        height: 35px;
+    }
+
+    .restaurant-name {
+        font-size: 16px;
+    }
+
+    .mobile-menu-toggle {
+        width: 38px;
+        height: 38px;
+    }
+}

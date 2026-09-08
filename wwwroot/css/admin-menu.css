@@ -1,0 +1,899 @@
+﻿/* ================================= */
+/*        GRILLMASTER ADMIN MENU     */
+/* ================================= */
+
+.admin-menu-page {
+    min-height: calc(100vh - 80px);
+    padding: 120px 25px 60px;
+    background: radial-gradient( circle at top right, rgba(255, 193, 7, 0.08), transparent 35% ), radial-gradient( circle at bottom left, rgba(255, 193, 7, 0.04), transparent 30% ), #090909;
+    color: #ffffff;
+}
+
+
+/* ================================= */
+/*           CONTAINER              */
+/* ================================= */
+
+.admin-menu-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* ================================= */
+/*             HEADER               */
+/* ================================= */
+
+.admin-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+
+.admin-menu-label {
+    margin-bottom: 8px;
+    color: #ffc107;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+
+.admin-menu-header h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+.admin-menu-header p {
+    margin: 8px 0 0;
+    color: #777777;
+    font-size: 15px;
+}
+
+
+/* ================================= */
+/*          ADD BUTTON              */
+/* ================================= */
+
+.add-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    background: #ffc107;
+    color: #111111 !important;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+
+    .add-menu-btn span {
+        font-size: 21px;
+        line-height: 1;
+    }
+
+
+    .add-menu-btn:hover {
+        background: #ffca2c;
+        color: #111111 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 193, 7, 0.20);
+    }
+
+
+/* ================================= */
+/*          TABLE CARD              */
+/* ================================= */
+
+.menu-table-card {
+    overflow: hidden;
+    background: rgba(20, 20, 20, 0.96);
+    border: 1px solid rgba(255, 193, 7, 0.16);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ================================= */
+/*           TABLE TOP              */
+/* ================================= */
+
+.table-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 25px;
+    background: #151515;
+    border-bottom: 1px solid #292929;
+}
+
+
+    .table-top h3 {
+        margin: 0;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+
+    .table-top span {
+        display: block;
+        margin-top: 4px;
+        color: #777777;
+        font-size: 12px;
+    }
+
+
+/* ================================= */
+/*             TABLE               */
+/* ================================= */
+
+.admin-menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+}
+
+
+    /* Header */
+
+    .admin-menu-table thead {
+        background: #101010;
+    }
+
+
+    .admin-menu-table th {
+        padding: 16px 18px;
+        color: #888888;
+        border-bottom: 1px solid #292929;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+
+    /* Rows */
+
+    .admin-menu-table tbody tr {
+        background: #151515;
+        border-bottom: 1px solid #252525;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+
+        .admin-menu-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+
+        .admin-menu-table tbody tr:hover {
+            background: #1b1b1b;
+        }
+
+
+    /* Cells */
+
+    .admin-menu-table td {
+        padding: 17px 18px;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+
+/* ================================= */
+/*              ID                 */
+/* ================================= */
+
+.item-id {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ================================= */
+/*          ITEM NAME              */
+/* ================================= */
+
+.menu-item-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+    .menu-item-name strong {
+        color: #ffffff;
+        font-size: 15px;
+    }
+
+
+.menu-item-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.18);
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+
+/* ================================= */
+/*            CATEGORY             */
+/* ================================= */
+
+.category-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+    border-radius: 6px;
+    color: #ffc107;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ================================= */
+/*              PRICE              */
+/* ================================= */
+
+.price-value {
+    color: #ffc107;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+
+    .price-value small {
+        margin-left: 3px;
+        color: #777777;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+
+/* ================================= */
+/*          DESCRIPTION            */
+/* ================================= */
+
+.description-cell {
+    max-width: 260px;
+    overflow: hidden;
+    color: #888888;
+    font-size: 13px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ================================= */
+/*             ACTIONS             */
+/* ================================= */
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+
+/* Edit */
+
+.edit-btn {
+    background: rgba(255, 193, 7, 0.10);
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    color: #ffc107 !important;
+}
+
+
+    .edit-btn:hover {
+        background: #ffc107;
+        color: #111111 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 193, 7, 0.18);
+    }
+
+
+/* Delete */
+
+.delete-btn {
+    background: rgba(220, 53, 69, 0.08);
+    border: 1px solid rgba(220, 53, 69, 0.20);
+    color: #ff5c6c !important;
+}
+
+
+    .delete-btn:hover {
+        background: #dc3545;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.18);
+    }
+
+
+/* ================================= */
+/*          EMPTY STATE            */
+/* ================================= */
+
+.empty-menu {
+    padding: 70px 30px;
+    text-align: center;
+    background: #151515;
+    border: 1px solid rgba(255, 193, 7, 0.16);
+    border-radius: 14px;
+}
+
+
+.empty-menu-icon {
+    margin-bottom: 15px;
+    font-size: 45px;
+}
+
+
+.empty-menu h3 {
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+
+.empty-menu p {
+    margin-bottom: 25px;
+    color: #777777;
+}
+
+
+/* ================================= */
+/*            MOBILE               */
+/* ================================= */
+
+@media (max-width: 900px) {
+
+    .admin-menu-page {
+        padding: 110px 15px 40px;
+    }
+
+
+    .admin-menu-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+
+        .admin-menu-header h1 {
+            font-size: 32px;
+        }
+
+
+    .add-menu-btn {
+        width: 100%;
+    }
+
+
+    .menu-table-card {
+        border-radius: 10px;
+    }
+
+
+    .admin-menu-table {
+        min-width: 950px;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .admin-menu-page {
+        padding: 100px 10px 30px;
+    }
+
+
+    .admin-menu-header h1 {
+        font-size: 27px;
+    }
+
+
+    .admin-menu-header p {
+        font-size: 13px;
+    }
+
+
+    .table-top {
+        padding: 18px;
+    }
+
+
+    .admin-menu-table th,
+    .admin-menu-table td {
+        padding: 13px 14px;
+    }
+}
+/* ================================= */
+/*          EDIT FORM               */
+/* ================================= */
+
+.admin-form-card {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 35px;
+    background: rgba(20, 20, 20, 0.96);
+    border: 1px solid rgba(255, 193, 7, 0.16);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Form Header */
+
+.admin-form-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #292929;
+}
+
+
+.form-item-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.18);
+    border-radius: 10px;
+    font-size: 23px;
+}
+
+
+.admin-form-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 19px;
+}
+
+
+.admin-form-header p {
+    margin: 4px 0 0;
+    color: #666666;
+    font-size: 12px;
+}
+
+
+/* Form Groups */
+
+.admin-form-group {
+    margin-bottom: 22px;
+}
+
+
+    .admin-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #dddddd;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+
+    .admin-form-group input,
+    .admin-form-group textarea,
+    .admin-form-group select {
+        width: 100%;
+        padding: 13px 14px;
+        background: #0f0f0f;
+        border: 1px solid #333333;
+        border-radius: 8px;
+        color: #ffffff;
+        font-size: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+
+    .admin-form-group textarea {
+        resize: vertical;
+        min-height: 110px;
+    }
+
+
+        .admin-form-group input::placeholder,
+        .admin-form-group textarea::placeholder {
+            color: #5f5f5f;
+        }
+
+
+        .admin-form-group input:focus,
+        .admin-form-group textarea:focus,
+        .admin-form-group select:focus {
+            background: #131313;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.07);
+        }
+
+
+    .admin-form-group select option {
+        background: #151515;
+        color: #ffffff;
+    }
+
+
+/* Price */
+
+.price-input-wrapper {
+    position: relative;
+}
+
+
+    .price-input-wrapper input {
+        padding-right: 55px;
+    }
+
+
+    .price-input-wrapper span {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #777777;
+        font-size: 11px;
+        font-weight: 700;
+        pointer-events: none;
+    }
+
+
+/* Errors */
+
+.form-error {
+    display: block;
+    margin-top: 6px;
+    color: #ff5c6c;
+    font-size: 12px;
+}
+
+
+/* Form Actions */
+
+.admin-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #292929;
+}
+
+
+.save-item-btn {
+    border: none;
+    padding: 11px 22px;
+    background: #ffc107;
+    color: #111111;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+
+    .save-item-btn:hover {
+        background: #ffca2c;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(255, 193, 7, 0.18);
+    }
+
+
+/* ================================= */
+/*          SECONDARY BUTTON        */
+/* ================================= */
+
+.admin-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    background: #1b1b1b;
+    border: 1px solid #333333;
+    border-radius: 7px;
+    color: #bbbbbb !important;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.25s ease;
+}
+
+
+    .admin-secondary-btn:hover {
+        background: #242424;
+        border-color: #555555;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+    }
+
+
+/* ================================= */
+/*          DELETE CARD             */
+/* ================================= */
+
+.admin-delete-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    text-align: center;
+    background: rgba(20, 20, 20, 0.96);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Delete Icon */
+
+.delete-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 53, 69, 0.08);
+    border: 1px solid rgba(220, 53, 69, 0.25);
+    border-radius: 50%;
+    font-size: 29px;
+}
+
+
+.admin-delete-card h2 {
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+
+.delete-description {
+    margin: 0 auto 28px;
+    max-width: 480px;
+    color: #777777;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* Item Preview */
+
+.delete-item-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    text-align: left;
+    background: #101010;
+    border: 1px solid #292929;
+    border-radius: 10px;
+}
+
+
+.delete-item-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+    border-radius: 8px;
+    font-size: 21px;
+}
+
+
+.delete-item-details {
+    flex: 1;
+    min-width: 0;
+}
+
+
+    .delete-item-details h3 {
+        margin: 0 0 6px;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+
+.delete-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666666;
+    font-size: 11px;
+}
+
+
+.delete-category {
+    padding: 4px 7px;
+    background: rgba(255, 193, 7, 0.08);
+    border-radius: 5px;
+    color: #ffc107;
+}
+
+
+.delete-item-price {
+    color: #ffc107;
+    font-size: 16px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+
+    .delete-item-price small {
+        color: #777777;
+        font-size: 10px;
+    }
+
+
+/* Description */
+
+.delete-item-description {
+    margin-top: 12px;
+    padding: 13px;
+    text-align: left;
+    color: #777777;
+    background: #101010;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* Delete Actions */
+
+.delete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #292929;
+}
+
+
+.confirm-delete-btn {
+    border: none;
+    padding: 11px 20px;
+    background: #dc3545;
+    color: #ffffff;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+
+    .confirm-delete-btn:hover {
+        background: #bb2d3b;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(220, 53, 69, 0.18);
+    }
+
+
+/* ================================= */
+/*            MOBILE               */
+/* ================================= */
+
+@media (max-width: 576px) {
+
+    .admin-form-card,
+    .admin-delete-card {
+        padding: 25px 20px;
+    }
+
+
+    .admin-form-actions,
+    .delete-actions {
+        flex-direction: column;
+    }
+
+
+        .admin-form-actions > *,
+        .delete-actions > * {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+
+    .delete-item-preview {
+        flex-wrap: wrap;
+    }
+
+
+    .delete-item-price {
+        width: 100%;
+        padding-left: 63px;
+    }
+}
+
+.admin-help-text {
+    display: block;
+    margin-top: 8px;
+    color: #777;
+    font-size: .82rem;
+}
+
+.current-image-preview {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding: 12px;
+    border: 1px solid #303030;
+    border-radius: 12px;
+    background: #171717;
+}
+
+.current-image-preview img {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.current-image-preview strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.remove-image-option {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #aaa;
+    font-size: .85rem;
+}
+
+.remove-image-option input {
+    width: auto;
+}
+
+.menu-delete-alert{margin:0 auto 20px;padding:14px 18px;border:1px solid #6b4f00;border-radius:10px;background:#201a08;color:#ffc107}

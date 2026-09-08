@@ -1,0 +1,612 @@
+﻿/* =========================================
+   GRILLMASTER - ADMIN CATEGORY
+   ========================================= */
+
+.admin-category-page {
+    min-height: calc(100vh - 80px);
+    padding: 60px 7%;
+    background: #0b0b0b;
+    color: #ffffff;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+
+.admin-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.admin-category-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #f5b400;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.admin-category-header h1 {
+    margin: 0;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.admin-category-header p {
+    margin: 14px 0 0;
+    color: #999;
+    font-size: 15px;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.category-add-btn,
+.category-back-btn,
+.category-edit-btn,
+.category-delete-btn,
+.category-cancel-btn,
+.category-save-btn,
+.category-confirm-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    font-weight: 800;
+}
+
+.category-add-btn {
+    gap: 10px;
+    padding: 14px 22px;
+    background: #f5b400;
+    color: #0b0b0b;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+    .category-add-btn span {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    .category-add-btn:hover {
+        background: #ffc933;
+        color: #000;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(245, 180, 0, 0.18);
+    }
+
+.category-back-btn {
+    padding: 12px 18px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #ddd;
+    background: #111;
+    font-size: 13px;
+}
+
+    .category-back-btn:hover {
+        border-color: #f5b400;
+        color: #f5b400;
+    }
+
+/* =========================================
+   ALERT
+   ========================================= */
+
+.category-alert {
+    margin-bottom: 25px;
+    padding: 16px 20px;
+    border-left: 4px solid #f5b400;
+    background: rgba(245, 180, 0, 0.08);
+    color: #f5b400;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* =========================================
+   MAIN CARD
+   ========================================= */
+
+.category-card {
+    overflow: hidden;
+    background: #111;
+    border: 1px solid #242424;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.category-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    border-bottom: 1px solid #242424;
+}
+
+    .category-card-header h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .category-card-header span {
+        color: #f5b400;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+/* =========================================
+   TABLE
+   ========================================= */
+
+.category-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+    .category-table th {
+        padding: 18px 28px;
+        background: #151515;
+        color: #777;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .category-table td {
+        padding: 22px 28px;
+        border-top: 1px solid #202020;
+        color: #ddd;
+        font-size: 14px;
+    }
+
+    .category-table tbody tr {
+        transition: background 0.2s ease;
+    }
+
+        .category-table tbody tr:hover {
+            background: #161616;
+        }
+
+    .category-table td strong {
+        color: #fff;
+        font-size: 15px;
+    }
+
+.category-id {
+    color: #777;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.items-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 30px;
+    padding: 0 9px;
+    background: #1d1d1d;
+    border: 1px solid #303030;
+    border-radius: 5px;
+    color: #f5b400;
+    font-weight: 800;
+}
+
+/* =========================================
+   ACTIONS
+   ========================================= */
+
+.category-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.category-edit-btn,
+.category-delete-btn {
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.category-edit-btn {
+    background: #1d1d1d;
+    border: 1px solid #333;
+    color: #ddd;
+}
+
+    .category-edit-btn:hover {
+        border-color: #f5b400;
+        color: #f5b400;
+    }
+
+.category-delete-btn {
+    background: transparent;
+    border: 1px solid #402020;
+    color: #d66;
+}
+
+    .category-delete-btn:hover {
+        background: #3a1717;
+        border-color: #d66;
+        color: #fff;
+    }
+
+/* =========================================
+   EMPTY STATE
+   ========================================= */
+
+.category-empty {
+    padding: 80px 30px;
+    text-align: center;
+}
+
+.category-empty-icon {
+    margin-bottom: 20px;
+    font-size: 42px;
+    opacity: 0.7;
+}
+
+.category-empty h3 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.category-empty p {
+    margin: 10px 0 25px;
+    color: #777;
+}
+
+/* =========================================
+   FORM CARD
+   ========================================= */
+
+.category-form-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #111;
+    border: 1px solid #242424;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.category-form-header {
+    margin-bottom: 30px;
+}
+
+    .category-form-header h2 {
+        margin: 0;
+        font-size: 24px;
+        text-transform: uppercase;
+    }
+
+    .category-form-header p {
+        margin: 8px 0 0;
+        color: #777;
+        font-size: 14px;
+    }
+
+    .category-form-header strong {
+        color: #f5b400;
+    }
+
+.category-form-group {
+    margin-bottom: 28px;
+}
+
+    .category-form-group label {
+        display: block;
+        margin-bottom: 10px;
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+.category-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 16px;
+    background: #0b0b0b;
+    border: 1px solid #333;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .category-input::placeholder {
+        color: #555;
+    }
+
+    .category-input:focus {
+        border-color: #f5b400;
+        box-shadow: 0 0 0 3px rgba(245, 180, 0, 0.08);
+    }
+
+.category-field-error {
+    display: block;
+    margin-top: 8px;
+    color: #e07070;
+    font-size: 12px;
+}
+
+.category-validation {
+    margin-bottom: 20px;
+    color: #e07070;
+    font-size: 13px;
+}
+
+    .category-validation ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.category-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.category-cancel-btn {
+    padding: 13px 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #181818;
+    color: #aaa;
+    font-size: 13px;
+}
+
+    .category-cancel-btn:hover {
+        color: #fff;
+        border-color: #555;
+    }
+
+.category-save-btn {
+    gap: 8px;
+    padding: 13px 22px;
+    border-radius: 5px;
+    background: #f5b400;
+    color: #0b0b0b;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+    .category-save-btn:hover {
+        background: #ffc933;
+        transform: translateY(-1px);
+    }
+
+.category-confirm-delete-btn {
+    padding: 13px 22px;
+    border: 1px solid #8d3030;
+    border-radius: 5px;
+    background: #5b1c1c;
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+    .category-confirm-delete-btn:hover {
+        background: #7a2424;
+    }
+
+/* =========================================
+   DELETE PAGE
+   ========================================= */
+
+.category-delete-card {
+    display: flex;
+    gap: 28px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px;
+    background: #111;
+    border: 1px solid #332020;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.delete-warning-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: rgba(214, 102, 102, 0.1);
+    color: #d66;
+    font-size: 27px;
+}
+
+.delete-content {
+    width: 100%;
+}
+
+.delete-label {
+    color: #d66;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.delete-content h2 {
+    margin: 8px 0;
+    font-size: 28px;
+    text-transform: uppercase;
+}
+
+.delete-content > p {
+    margin: 0 0 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+.delete-category-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    margin-bottom: 20px;
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 6px;
+}
+
+.delete-category-id {
+    color: #777;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.delete-category-info strong {
+    color: #fff;
+    font-size: 17px;
+}
+
+.delete-danger-message,
+.delete-warning-message {
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.delete-danger-message {
+    background: rgba(214, 102, 102, 0.08);
+    border-left: 3px solid #d66;
+}
+
+    .delete-danger-message strong {
+        color: #e07070;
+    }
+
+    .delete-danger-message p {
+        margin: 6px 0 0;
+        color: #999;
+    }
+
+        .delete-danger-message p strong {
+            color: #fff;
+        }
+
+.delete-warning-message {
+    background: rgba(245, 180, 0, 0.07);
+    border-left: 3px solid #f5b400;
+}
+
+    .delete-warning-message strong {
+        color: #f5b400;
+    }
+
+    .delete-warning-message p {
+        margin: 6px 0 0;
+        color: #888;
+    }
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .admin-category-page {
+        padding: 40px 5%;
+    }
+
+    .admin-category-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .category-add-btn,
+    .category-back-btn {
+        width: 100%;
+    }
+
+    .category-card-header {
+        padding: 20px;
+    }
+
+    .category-table th,
+    .category-table td {
+        padding: 16px 20px;
+    }
+
+    .category-form-card {
+        padding: 25px 20px;
+    }
+
+    .category-delete-card {
+        flex-direction: column;
+        padding: 30px 20px;
+    }
+
+    .category-form-actions {
+        flex-direction: column-reverse;
+    }
+
+        .category-form-actions > * {
+            width: 100%;
+        }
+
+    .delete-warning-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .admin-category-page {
+        padding: 30px 4%;
+    }
+
+    .admin-category-header h1 {
+        font-size: 36px;
+    }
+
+    .category-actions {
+        flex-direction: column;
+    }
+
+    .category-edit-btn,
+    .category-delete-btn {
+        width: 100%;
+    }
+}
